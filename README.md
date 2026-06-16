@@ -1,1 +1,61 @@
 # dataoma
+# Dataoma
+
+Marketing site for **Dataoma** — _Complex data into decisions._
+
+Dataoma is an AI firm that automates reporting, makes data usable, and proves impact for organizations in any sector.
+
+## What this is
+
+A single-page, dependency-free static site (`index.html`) plus favicon assets and a logo. No build step, no framework. Fonts load from Google Fonts; everything else is self-contained.
+
+## Before you launch: two quick edits
+
+1. **Connect the contact form** (2 minutes)
+   - Create a free account at [formspree.io](https://formspree.io) and make a new form.
+   - Copy your form endpoint (looks like `https://formspree.io/f/abcdwxyz`).
+   - In `index.html`, find `action="https://formspree.io/f/YOUR_FORM_ID"` and replace `YOUR_FORM_ID` with your real ID.
+   - Until you do this, the form shows a friendly "not connected yet" message instead of failing silently.
+
+2. **Set your contact email**
+   - Replace `hello@dataoma.com` (appears in the footer and as the form's fallback) with your real address.
+
+## Deploy to GitHub Pages
+
+1. Push all files to a new repo's `main` branch:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial Dataoma site"
+   git branch -M main
+   git remote add origin https://github.com/<your-username>/dataoma-site.git
+   git push -u origin main
+   ```
+2. Repo **Settings → Pages → Build and deployment**.
+3. **Source**: *Deploy from a branch*; **Branch**: `main` / `root`; save.
+4. Live at `https://<your-username>.github.io/dataoma-site/` in a minute or two.
+
+### Custom domain (optional)
+- Add your domain in **Settings → Pages → Custom domain** (e.g. `dataoma.com`).
+- Point DNS: a `CNAME` record to `<your-username>.github.io`, or `A` records to GitHub Pages IPs.
+
+## Editing
+
+- All copy, colors, and type live in `index.html`. Colors are CSS variables at the top of the `<style>` block (`--ink`, `--paper`, `--signal`, etc.).
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `index.html` | The entire site |
+| `logo.svg` | Standalone logomark (the D-as-signal-path mark) |
+| `favicon.ico` | Browser tab icon (16 + 32px) |
+| `favicon-16.png`, `favicon-32.png` | PNG favicons |
+| `apple-touch-icon.png` | iOS home-screen icon (180px) |
+| `android-chrome-192x192.png`, `android-chrome-512x512.png` | Android / PWA icons |
+| `.nojekyll` | Tells GitHub Pages to serve files as-is |
+| `README.md` | This file |
+
+## The logo
+
+The mark is a **D for Dataoma drawn as a signal path**: a structural stem with the bowl traced as a single data line that resolves from neutral into the teal "signal" color, landing on a node — the moment data becomes a decision. It echoes the hero animation, so the whole identity tells one story.
