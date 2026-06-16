@@ -1,4 +1,3 @@
-# dataoma
 # Dataoma
 
 Marketing site for **Dataoma** — _Complex data into decisions._
@@ -48,7 +47,7 @@ A single-page, dependency-free static site (`index.html`) plus favicon assets an
 | File | Purpose |
 |------|---------|
 | `index.html` | The entire site |
-| `logo.svg` | Standalone logomark (the D-as-signal-path mark) |
+| `logo.svg` | Standalone Dataoma wordmark lockup (dark version, for light backgrounds) |
 | `favicon.ico` | Browser tab icon (16 + 32px) |
 | `favicon-16.png`, `favicon-32.png` | PNG favicons |
 | `apple-touch-icon.png` | iOS home-screen icon (180px) |
@@ -58,4 +57,4 @@ A single-page, dependency-free static site (`index.html`) plus favicon assets an
 
 ## The logo
 
-The mark is a **D for Dataoma drawn as a signal path**: a structural stem with the bowl traced as a single data line that resolves from neutral into the teal "signal" color, landing on a node — the moment data becomes a decision. It echoes the hero animation, so the whole identity tells one story.
+The logo is the **Dataoma wordmark** set in Space Grotesk, with a teal macron over "oma" (cueing the long "oh" sound) and a small stack of bars trailing off the end of the word, descending into a teal signal node — the moment scattered data resolves into a decision. The favicon and app icons use a condensed version of that bar-and-node mark so the identity reads even at 16px.
