@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<meta name="theme-color" content="#0B1B2B" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dataoma — Complex data into decisions</title>
+<meta name="description" content="Dataoma turns complex data into decisions, designing and deploying AI, analytics, and visualization solutions that help organizations operate smarter and prove their impact." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0B1B2B;
+    --ink-soft: #12283d;
+    --paper: #F7F4EF;
+    --paper-dim: #ECE7DD;
+    --signal: #19C2B8;
+    --signal-deep: #0E8F88;
+    --slate: #5C6B78;
+    --slate-light: #93A1AC;
+    --line: rgba(11, 27, 43, 0.12);
+    --line-dark: rgba(247, 244, 239, 0.14);
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --maxw: 1180px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--signal); color: var(--ink); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--signal-deep);
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    backdrop-filter: blur(10px);
+    background: rgba(247, 244, 239, 0.72);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s ease, background .3s ease;
+  }
+  header.nav.scrolled { border-color: var(--line); }
+  .nav-inner {
+    max-width: var(--maxw); margin: 0 auto; padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    display: flex; align-items: center; font-size: 0; line-height: 0;
+  }
+  .logo svg { height: 30px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 34px; align-items: center; }
+  .nav-links a {
+    font-size: 0.92rem; color: var(--slate); font-weight: 500;
+    transition: color .2s ease;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    font-family: var(--body); font-weight: 600; font-size: 0.9rem;
+    background: var(--ink); color: var(--paper);
+    padding: 10px 20px; border-radius: 999px;
+    transition: transform .2s ease, background .2s ease;
+  }
+  .nav-cta:hover { background: var(--ink-soft); transform: translateY(-1px); }
+  .nav-toggle { display: none; background: none; border: 0; cursor: pointer; }
+
+  /* ---------- HERO ---------- */
+  .hero { position: relative; padding: 190px 0 120px; }
+  #signal-canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    z-index: 0; opacity: 0.9;
+  }
+  .hero .wrap { position: relative; z-index: 2; }
+  .hero h1 {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(2.6rem, 6.2vw, 5rem);
+    line-height: 1.02; letter-spacing: -0.03em;
+    max-width: 16ch; margin: 26px 0 0;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(100deg, var(--signal-deep), var(--signal));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.lede {
+    font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+    color: var(--slate); max-width: 52ch; margin: 28px 0 0; font-weight: 400;
+  }
+  .hero-actions { display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
+  .btn-primary {
+    font-weight: 600; font-size: 1rem; background: var(--ink); color: var(--paper);
+    padding: 15px 30px; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(11,27,43,0.18); }
+  .btn-primary .arrow { transition: transform .2s ease; }
+  .btn-primary:hover .arrow { transform: translateX(4px); }
+  .btn-ghost {
+    font-weight: 600; font-size: 1rem; color: var(--ink);
+    padding: 15px 26px; border-radius: 999px; border: 1px solid var(--line);
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .btn-ghost:hover { border-color: var(--ink); background: rgba(11,27,43,0.03); }
+
+  .hero-stats {
+    display: flex; gap: 56px; margin-top: 72px; flex-wrap: wrap;
+    padding-top: 36px; border-top: 1px solid var(--line);
+  }
+  .stat .num {
+    font-family: var(--mono); font-size: 2rem; font-weight: 500;
+    color: var(--ink); letter-spacing: -0.02em;
+  }
+  .stat .lbl { font-size: 0.85rem; color: var(--slate); margin-top: 4px; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section { padding: 110px 0; }
+  .section-head { max-width: 60ch; margin-bottom: 60px; }
+  .section-head h2 {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+    letter-spacing: -0.025em; line-height: 1.08; margin-top: 16px;
+  }
+  .section-head p { color: var(--slate); font-size: 1.08rem; margin-top: 18px; max-width: 54ch; }
+
+  /* ---------- CAPABILITIES ---------- */
+  .caps { background: var(--ink); color: var(--paper); }
+  .caps .eyebrow { color: var(--signal); }
+  .caps .section-head h2 { color: var(--paper); }
+  .caps .section-head p { color: var(--slate-light); }
+  .cap-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--line-dark); border: 1px solid var(--line-dark);
+    border-radius: 18px; overflow: hidden;
+  }
+  .cap {
+    background: var(--ink); padding: 38px 32px 42px;
+    transition: background .3s ease; position: relative;
+  }
+  .cap:hover { background: var(--ink-soft); }
+  .cap .idx {
+    font-family: var(--mono); font-size: 0.78rem; color: var(--signal);
+    letter-spacing: 0.1em;
+  }
+  .cap h3 {
+    font-family: var(--display); font-weight: 600; font-size: 1.3rem;
+    margin: 20px 0 12px; letter-spacing: -0.01em;
+  }
+  .cap p { color: var(--slate-light); font-size: 0.96rem; }
+  .cap .line {
+    width: 34px; height: 2px; background: var(--signal); margin-top: 22px;
+    transition: width .3s ease;
+  }
+  .cap:hover .line { width: 58px; }
+
+  /* ---------- APPROACH ---------- */
+  .approach .step-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+  }
+  .step { position: relative; padding-top: 28px; border-top: 2px solid var(--ink); }
+  .step .snum {
+    font-family: var(--mono); font-size: 0.8rem; color: var(--signal-deep);
+    font-weight: 500; letter-spacing: 0.1em;
+  }
+  .step h4 {
+    font-family: var(--display); font-weight: 600; font-size: 1.18rem;
+    margin: 14px 0 10px;
+  }
+  .step p { color: var(--slate); font-size: 0.94rem; }
+
+  /* ---------- SELECTED WORK ---------- */
+  .work { background: var(--paper); }
+  .work-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--line); border: 1px solid var(--line);
+    border-radius: 18px; overflow: hidden;
+  }
+  .work-item {
+    background: var(--paper); padding: 40px 36px 44px;
+    transition: background .3s ease;
+  }
+  .work-item:hover { background: #fff; }
+  .work-item .wnum {
+    font-family: var(--mono); font-size: 0.78rem; color: var(--signal-deep);
+    letter-spacing: 0.12em;
+  }
+  .work-item .wmetric {
+    font-family: var(--mono); font-size: 1.55rem; font-weight: 500;
+    color: var(--ink); letter-spacing: -0.02em; margin: 18px 0 14px;
+  }
+  .work-item h3 {
+    font-family: var(--display); font-weight: 600; font-size: 1.22rem;
+    margin: 0 0 12px; letter-spacing: -0.01em;
+  }
+  .work-item p { color: var(--slate); font-size: 0.97rem; }
+  .work-note {
+    font-family: var(--mono); font-size: 0.78rem; color: var(--slate);
+    margin-top: 38px; text-align: center; letter-spacing: 0.03em;
+  }
+
+  /* ---------- SECTORS ---------- */
+  .sectors { background: var(--paper-dim); }
+  .sector-row {
+    display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px;
+  }
+  .sector-tag {
+    font-family: var(--mono); font-size: 0.86rem; font-weight: 500;
+    padding: 11px 20px; border-radius: 999px;
+    background: var(--paper); border: 1px solid var(--line);
+    transition: transform .2s ease, border-color .2s ease, color .2s ease;
+  }
+  .sector-tag:hover { transform: translateY(-2px); border-color: var(--signal); color: var(--signal-deep); }
+  .sectors-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start;
+    margin-top: 16px;
+  }
+  .pullquote {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.28;
+    letter-spacing: -0.02em;
+  }
+  .pullquote .hl { color: var(--signal-deep); }
+  .pullquote cite {
+    display: block; font-family: var(--mono); font-size: 0.82rem;
+    color: var(--slate); font-style: normal; margin-top: 22px; letter-spacing: 0.04em;
+  }
+
+  /* ---------- CTA ---------- */
+  .final-cta { background: var(--ink); color: var(--paper); text-align: center; }
+  .final-cta h2 {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: -0.03em;
+    line-height: 1.06; max-width: 18ch; margin: 22px auto 0;
+  }
+  .final-cta p { color: var(--slate-light); font-size: 1.1rem; margin: 22px auto 0; max-width: 46ch; }
+  .final-cta .btn-primary { background: var(--signal); color: var(--ink); margin-top: 40px; }
+  .final-cta .btn-primary:hover { box-shadow: 0 14px 34px rgba(25,194,184,0.34); }
+  .final-cta .eyebrow { color: var(--signal); }
+  .contact-form {
+    max-width: 520px; margin: 38px auto 0; text-align: left;
+    display: grid; gap: 16px;
+  }
+  .contact-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .contact-form label {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--slate-light); display: block; margin-bottom: 7px;
+  }
+  .contact-form input, .contact-form textarea {
+    width: 100%; font-family: var(--body); font-size: 0.98rem; color: var(--paper);
+    background: rgba(247,244,239,0.05); border: 1px solid var(--line-dark);
+    border-radius: 11px; padding: 13px 15px; transition: border-color .2s ease, background .2s ease;
+  }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--slate); }
+  .contact-form input:focus, .contact-form textarea:focus {
+    outline: none; border-color: var(--signal); background: rgba(247,244,239,0.08);
+  }
+  .contact-form textarea { resize: vertical; min-height: 110px; }
+  .contact-form button {
+    font-family: var(--body); font-weight: 600; font-size: 1rem; cursor: pointer;
+    background: var(--signal); color: var(--ink); border: 0;
+    padding: 15px 30px; border-radius: 999px; justify-self: start;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .contact-form button:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(25,194,184,0.34); }
+  .form-status { font-size: 0.92rem; color: var(--signal); min-height: 1.2em; }
+  .form-status.error { color: #ff9b8a; }
+  @media (max-width: 540px) { .contact-form .row { grid-template-columns: 1fr; } }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background: var(--ink); color: var(--slate-light);
+    border-top: 1px solid var(--line-dark); padding: 56px 0 40px;
+  }
+  .foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+  .foot-inner .logo { color: var(--paper); }
+  .foot-links { display: flex; gap: 28px; }
+  .foot-links a { font-size: 0.9rem; transition: color .2s ease; }
+  .foot-links a:hover { color: var(--signal); }
+  .foot-base {
+    margin-top: 38px; padding-top: 24px; border-top: 1px solid var(--line-dark);
+    font-family: var(--mono); font-size: 0.78rem; color: var(--slate);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .cap-grid { grid-template-columns: 1fr; }
+    .approach .step-grid { grid-template-columns: 1fr 1fr; }
+    .work-grid { grid-template-columns: 1fr; }
+    .sectors-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero { padding: 150px 0 90px; }
+  }
+  @media (max-width: 540px) {
+    .wrap { padding: 0 22px; }
+    .nav-inner { padding: 16px 22px; }
+    .approach .step-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 32px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top" aria-label="Dataoma — home"><svg viewBox="0 0 312 76" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dataoma"><text x="0" y="58" font-family="'Space Grotesk', sans-serif" font-size="54" font-weight="600" fill="#0B1B2B" letter-spacing="-1">Dataoma</text><rect x="116" y="12" width="126" height="7" rx="3.5" fill="#19C2B8"/><rect x="228" y="34" width="38" height="7" rx="3.5" fill="#0B1B2B"/><rect x="226" y="52" width="60" height="7" rx="3.5" fill="#5C6B78"/><circle cx="296" cy="56" r="6" fill="#19C2B8"/></svg></a>
+    <nav class="nav-links">
+      <a href="#capabilities">Capabilities</a>
+      <a href="#approach">Approach</a>
+      <a href="#work">Work</a>
+      <a href="#sectors">Who we serve</a>
+      <a class="nav-cta" href="#contact">Start a project</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <canvas id="signal-canvas"></canvas>
+    <div class="wrap">
+      <span class="eyebrow">AI &middot; Analytics &middot; Visualization</span>
+      <h1>Complex data into <span class="grad">decisions.</span></h1>
+      <p class="lede">Dataoma is an AI firm that automates your reporting, makes your data usable, and proves your impact, so your team spends less time wrangling data and more time acting on it.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#contact">Start a project <span class="arrow">&rarr;</span></a>
+        <a class="btn-ghost" href="#capabilities">See what we do</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">$96K+</div><div class="lbl">won with an AI-assisted grant process</div></div>
+        <div class="stat"><div class="num">110+ orgs</div><div class="lbl">coordinated into one policy endorsement</div></div>
+        <div class="stat"><div class="num">Pilot &rarr; production</div><div class="lbl">tools deployed in real workflows</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES -->
+  <section class="caps" id="capabilities">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">What we do</span>
+        <h2>The work we take off your plate.</h2>
+        <p>Six things organizations hire us for. Every one is grounded in your real data, your existing systems, and the way your team already works.</p>
+      </div>
+      <div class="cap-grid">
+        <div class="cap reveal">
+          <span class="idx">01</span>
+          <h3>Automate your reporting</h3>
+          <p>We turn raw notes, records, and exports into finished, ready-to-send reports, replacing the manual write-up that eats your team's week.</p>
+          <div class="line"></div>
+        </div>
+        <div class="cap reveal">
+          <span class="idx">02</span>
+          <h3>Make your data usable</h3>
+          <p>We pull scattered spreadsheets, surveys, and systems into one source of truth you can actually query and trust.</p>
+          <div class="line"></div>
+        </div>
+        <div class="cap reveal">
+          <span class="idx">03</span>
+          <h3>Build dashboards people use</h3>
+          <p>Interactive dashboards that make the answer obvious to the people who have to act on it, no analyst required to read them.</p>
+          <div class="line"></div>
+        </div>
+        <div class="cap reveal">
+          <span class="idx">04</span>
+          <h3>Prove your impact</h3>
+          <p>Evidence-ready analysis that wins grants and stands up to funders, boards, and regulators, with the findings translated into plain recommendations.</p>
+          <div class="line"></div>
+        </div>
+        <div class="cap reveal">
+          <span class="idx">05</span>
+          <h3>Predict what's coming</h3>
+          <p>Forecasting and predictive models that flag demand, risk, and gaps early, deployed into production instead of stalling as a proof of concept.</p>
+          <div class="line"></div>
+        </div>
+        <div class="cap reveal">
+          <span class="idx">06</span>
+          <h3>Put AI to work in your workflow</h3>
+          <p>Custom AI tools and automations built for your specific process, with the training and handoff to make sure they outlast the engagement.</p>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach" id="approach">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">How we work</span>
+        <h2>A clear path from question to working solution.</h2>
+        <p>No mystery, no endless discovery. A defined sequence that gets you to something usable, fast.</p>
+      </div>
+      <div class="step-grid">
+        <div class="step reveal">
+          <span class="snum">STEP 01</span>
+          <h4>Frame</h4>
+          <p>We pin down the decision you need to make and the data that actually informs it.</p>
+        </div>
+        <div class="step reveal">
+          <span class="snum">STEP 02</span>
+          <h4>Build</h4>
+          <p>We engineer the models, pipelines, and visuals against your real environment.</p>
+        </div>
+        <div class="step reveal">
+          <span class="snum">STEP 03</span>
+          <h4>Deploy</h4>
+          <p>We ship it into your workflow and make sure it holds up under real use.</p>
+        </div>
+        <div class="step reveal">
+          <span class="snum">STEP 04</span>
+          <h4>Enable</h4>
+          <p>We hand off documentation and training so the work outlives the engagement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section class="work" id="work">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Selected work</span>
+        <h2>Proof, not promises.</h2>
+        <p>A sample of what AI-accelerated work looks like when one operator does what normally takes a team.</p>
+      </div>
+      <div class="work-grid">
+        <div class="work-item reveal">
+          <span class="wnum">01</span>
+          <div class="wmetric">$96K+ won</div>
+          <h3>Grant production that pays for itself</h3>
+          <p>Built a repeatable, AI-assisted grant development process and used it to win more than $96K in funding for community health programs, including a $25K community advisory board grant and a separate $71K award.</p>
+        </div>
+        <div class="work-item reveal">
+          <span class="wnum">02</span>
+          <div class="wmetric">Advancing in the Senate</div>
+          <h3>Legislation built on data</h3>
+          <p>Turned raw workforce survey data and public records into legislative-ready analysis and testimony, supporting a California midwifery workforce bill now advancing through the State Senate.</p>
+        </div>
+        <div class="work-item reveal">
+          <span class="wnum">03</span>
+          <div class="wmetric">Statewide coverage</div>
+          <h3>Mapping where care disappears</h3>
+          <p>Produced a statewide geospatial analysis of birth center and maternity ward closures, surfacing access gaps across California to direct policy and resources where they matter most.</p>
+        </div>
+        <div class="work-item reveal">
+          <span class="wnum">04</span>
+          <div class="wmetric">Hours &rarr; minutes</div>
+          <h3>Reporting on autopilot</h3>
+          <p>Designed and deployed custom automation tools that convert raw meeting transcripts and calendars into finished, funder-ready reporting deliverables, turning hours of manual write-up into minutes.</p>
+        </div>
+      </div>
+      <p class="work-note">AI-assisted and AI-accelerated work. Outcomes verifiable on request.</p>
+    </div>
+  </section>
+
+  <!-- SECTORS -->
+  <section class="sectors" id="sectors">
+    <div class="wrap">
+      <div class="sectors-grid">
+        <div class="reveal">
+          <span class="eyebrow">Who we serve</span>
+          <p class="pullquote" style="margin-top:16px;">Built for <span class="hl">teams that carry more data than capacity</span>, in any sector where the stakes are real.
+            <cite>Healthcare &middot; Nonprofits &middot; Public sector &middot; Mission-driven business</cite>
+          </p>
+        </div>
+        <div class="reveal">
+          <p style="color:var(--slate); font-size:1.05rem; margin-bottom:26px;">We work across industries, and we cut our teeth in one of the hardest: regulated, under-resourced perinatal and public health, where the data is messy, the funders are demanding, and getting it right matters. If we can deliver there, we can deliver for you.</p>
+          <div class="sector-row">
+            <span class="sector-tag">Healthcare systems</span>
+            <span class="sector-tag">Midwifery associations</span>
+            <span class="sector-tag">Healthy Start programs</span>
+            <span class="sector-tag">Public health agencies</span>
+            <span class="sector-tag">Nonprofits &amp; foundations</span>
+            <span class="sector-tag">Consortia &amp; coalitions</span>
+            <span class="sector-tag">Research teams</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" id="contact">
+    <div class="wrap">
+      <span class="eyebrow">Start a project</span>
+      <h2>Let's turn your data into your next decision.</h2>
+      <p>Tell us the decision you're trying to make. We'll tell you what's possible with the data you already have.</p>
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="row">
+          <div>
+            <label for="cf-name">Name</label>
+            <input id="cf-name" type="text" name="name" placeholder="Your name" required />
+          </div>
+          <div>
+            <label for="cf-email">Email</label>
+            <input id="cf-email" type="email" name="email" placeholder="you@org.com" required />
+          </div>
+        </div>
+        <div>
+          <label for="cf-org">Organization</label>
+          <input id="cf-org" type="text" name="organization" placeholder="Where you work" />
+        </div>
+        <div>
+          <label for="cf-msg">What are you trying to figure out?</label>
+          <textarea id="cf-msg" name="message" placeholder="The decision, the data, the deadline. A few sentences is plenty." required></textarea>
+        </div>
+        <button type="submit">Send it over <span class="arrow">&rarr;</span></button>
+        <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <a class="logo" href="#top" aria-label="Dataoma — home"><svg viewBox="0 0 312 76" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dataoma"><text x="0" y="58" font-family="'Space Grotesk', sans-serif" font-size="54" font-weight="600" fill="#F7F4EF" letter-spacing="-1">Dataoma</text><rect x="116" y="12" width="126" height="7" rx="3.5" fill="#19C2B8"/><rect x="228" y="34" width="38" height="7" rx="3.5" fill="#F7F4EF"/><rect x="226" y="52" width="60" height="7" rx="3.5" fill="#5C6B78"/><circle cx="296" cy="56" r="6" fill="#19C2B8"/></svg></a>
+      <div class="foot-links">
+        <a href="#capabilities">Capabilities</a>
+        <a href="#approach">Approach</a>
+        <a href="#work">Work</a>
+        <a href="#sectors">Who we serve</a>
+        <a href="mailto:hello@dataoma.com">Contact</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>&copy; 2026 Dataoma. Complex data into decisions.</span>
+      <span>hello@dataoma.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---------- Contact form (async submit via Formspree) ----------
+  const form = document.getElementById('contact-form');
+  const statusEl = document.getElementById('form-status');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusEl.className = 'form-status';
+      // Guard against unconfigured endpoint
+      if (form.action.includes('YOUR_FORM_ID')) {
+        statusEl.textContent = 'Form not connected yet. Add your Formspree ID to go live.';
+        statusEl.classList.add('error');
+        return;
+      }
+      statusEl.textContent = 'Sending...';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          statusEl.textContent = "Got it. We'll be in touch within two business days.";
+        } else {
+          statusEl.textContent = 'Something went wrong. Email hello@dataoma.com instead.';
+          statusEl.classList.add('error');
+        }
+      } catch {
+        statusEl.textContent = 'Network error. Email hello@dataoma.com instead.';
+        statusEl.classList.add('error');
+      }
+    });
+  }
+
+  // Nav border on scroll
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  window.addEventListener('scroll', onScroll); onScroll();
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.14 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ---------- Signal canvas: noise resolves into signal ----------
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas = document.getElementById('signal-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, dpr, points = [], raf, t = 0;
+
+  function palette() {
+    return { signal: '#19C2B8', ink: 'rgba(11,27,43,0.10)', dot: 'rgba(11,27,43,0.34)' };
+  }
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    initPoints();
+  }
+
+  function initPoints() {
+    points = [];
+    const N = Math.max(46, Math.floor(W / 22));
+    for (let i = 0; i < N; i++) {
+      const x = (i / (N - 1)) * W;
+      // target y follows a calm trend line in the right portion of hero
+      const trend = H * 0.62 - Math.sin(i / N * Math.PI * 1.1) * H * 0.16;
+      points.push({
+        x,
+        baseY: trend,
+        scatter: (Math.random() - 0.5) * H * 0.5,
+        y: trend,
+        seed: Math.random() * 1000
+      });
+    }
+  }
+
+  function draw() {
+    const p = palette();
+    ctx.clearRect(0, 0, W, H);
+    t += 0.006;
+    // resolve factor oscillates slowly so noise gathers into the line then breathes
+    const resolve = (Math.sin(t) * 0.5 + 0.5) * 0.82 + 0.12;
+
+    // connecting signal line
+    ctx.beginPath();
+    points.forEach((pt, i) => {
+      const noiseY = pt.baseY + pt.scatter * Math.sin(t * 1.3 + pt.seed);
+      pt.y = noiseY * (1 - resolve) + pt.baseY * resolve;
+      if (i === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+    });
+    ctx.strokeStyle = `rgba(25,194,184,${0.22 + resolve * 0.5})`;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // points
+    points.forEach((pt) => {
+      ctx.beginPath();
+      ctx.arc(pt.x, pt.y, 2.6, 0, Math.PI * 2);
+      ctx.fillStyle = resolve > 0.7 ? p.signal : p.dot;
+      ctx.globalAlpha = 0.5 + resolve * 0.5;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    });
+
+    raf = requestAnimationFrame(draw);
+  }
+
+  if (canvas && !reduced) {
+    resize();
+    window.addEventListener('resize', () => { cancelAnimationFrame(raf); resize(); draw(); });
+    draw();
+  } else if (canvas && reduced) {
+    // static resolved state
+    resize();
+    const p = palette();
+    ctx.beginPath();
+    points.forEach((pt, i) => { if (i === 0) ctx.moveTo(pt.x, pt.baseY); else ctx.lineTo(pt.x, pt.baseY); });
+    ctx.strokeStyle = 'rgba(25,194,184,0.7)'; ctx.lineWidth = 2; ctx.stroke();
+    points.forEach((pt) => { ctx.beginPath(); ctx.arc(pt.x, pt.baseY, 2.6, 0, Math.PI*2); ctx.fillStyle = p.signal; ctx.fill(); });
+  }
+</script>
+
+</body>
+</html>
